@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "Py Dojo"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Lakshan
+    given-names: Thanuja
+version: 0.1.0
+date-released: "2026-10-25"
+license: MIT
+url: "https://github.com/BronXTJ/py-dojo"
+repository-code: "https://github.com/BronXTJ/py-dojo"
+keywords:
+  - python
+  - gis
+  - education
+  - pyodide
+  - offline-first

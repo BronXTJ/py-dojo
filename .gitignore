@@ -1,0 +1,37 @@
+# Learner progress written by the local server (one JSON file per profile)
+app/data/*.json
+app/data/*.json.tmp
+app/data/*.tmp
+
+# Local builds and release bundles. Binaries are produced by CI, not committed.
+/dist/
+/out/
+/bundle/
+app/bin/
+
+# Operating systems
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Go
+server/pydojo
+*.test

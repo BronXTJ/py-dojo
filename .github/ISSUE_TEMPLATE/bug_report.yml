@@ -1,0 +1,56 @@
+name: Bug report
+description: Something in Py Dojo did not behave as described.
+title: ""
+labels: []
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: What you clicked or typed. A snippet of the code in the playground helps.
+    validations:
+      required: true
+  - type: dropdown
+    id: how
+    attributes:
+      label: How you opened Py Dojo
+      options:
+        - GitHub Pages
+        - Downloaded release zip and a Start file
+        - Opened index.html directly
+        - Local Go helper from a clone
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Chrome 131 on Windows 11
+    validations:
+      required: true
+  - type: dropdown
+    id: save
+    attributes:
+      label: Where did the save line say progress went?
+      options:
+        - This browser
+        - The progress file (Saved)
+        - It reported a failure
+        - I did not notice
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, the playground message, or whether Python said it was ready.
+    validations:
+      required: false

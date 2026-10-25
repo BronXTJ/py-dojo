@@ -1,0 +1,34 @@
+name: Feature request
+description: A change that would help someone learn Python or GIS with Py Dojo.
+title: ""
+labels: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: Who hits this, and what they are trying to learn.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What the app should do. Mention the belt if it belongs to the curriculum.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Lessons or exercises
+        - Playground
+        - Error encyclopedia or glossary
+        - Progress and profiles
+        - Local helper
+        - Pages or the offline zip
+        - Accessibility
+        - Other
+    validations:
+      required: true

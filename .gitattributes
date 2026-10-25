@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.png binary
+*.js text eol=lf
+
+# Vendored Pyodide runtime. Keep it in the tree for offline use, but do not
+# let it dominate the repository language statistics.
+app/pyodide/** linguist-vendored
