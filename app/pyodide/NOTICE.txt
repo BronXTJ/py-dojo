@@ -1,0 +1,4 @@
+bundle.js contains the core files of Pyodide 0.26.4 (pyodide.js, pyodide.asm.js,
+pyodide.asm.wasm, python_stdlib.zip, pyodide-lock.json), base64-encoded, unmodified.
+Pyodide is open source under the Mozilla Public License 2.0; it includes CPython
+(PSF License). Source: github.com/pyodide/pyodide

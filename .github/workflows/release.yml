@@ -1,0 +1,128 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.goos }}-${{ matrix.goarch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            bin: pydojo-linux-x64
+          - goos: darwin
+            goarch: arm64
+            bin: pydojo-mac-arm64
+          - goos: darwin
+            goarch: amd64
+            bin: pydojo-mac-x64
+          - goos: windows
+            goarch: amd64
+            bin: pydojo-windows-x64.exe
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: server/go.mod
+          cache: false
+
+      - name: Build
+        working-directory: server
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          BIN: ${{ matrix.bin }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          go build -trimpath -ldflags="-s -w" -o "$GITHUB_WORKSPACE/dist/$BIN" .
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.bin }}
+          path: dist/${{ matrix.bin }}
+          if-no-files-found: error
+
+  package:
+    name: Package offline zip
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download binaries
+        uses: actions/download-artifact@v8
+        with:
+          path: dist/bin
+          merge-multiple: true
+
+      - name: Assemble zip
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="dev-${GITHUB_SHA:0:7}"
+          fi
+          ROOT="py-dojo-${VERSION}"
+          STAGE="bundle/${ROOT}"
+          mkdir -p "${STAGE}/bin" out
+          tar -C app -cf - . | tar -C "${STAGE}" -xf -
+          for bin in dist/bin/*; do
+            cp -a "$bin" "${STAGE}/bin/"
+          done
+          chmod 755 \
+            "${STAGE}/bin/pydojo-linux-x64" \
+            "${STAGE}/bin/pydojo-mac-arm64" \
+            "${STAGE}/bin/pydojo-mac-x64" \
+            "${STAGE}/start-linux.sh" \
+            "${STAGE}/Start Py Dojo (Mac).command"
+          cp LICENSE THIRD_PARTY_NOTICES.md "${STAGE}/"
+          (
+            cd "${STAGE}/bin"
+            sha256sum \
+              pydojo-linux-x64 \
+              pydojo-mac-arm64 \
+              pydojo-mac-x64 \
+              pydojo-windows-x64.exe \
+              > ../SHA256SUMS.txt
+          )
+          (
+            cd bundle
+            zip -r -X "../out/py-dojo-${VERSION}-offline.zip" "${ROOT}"
+          )
+          (
+            cd out
+            sha256sum "py-dojo-${VERSION}-offline.zip" > SHA256SUMS.txt
+          )
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v7
+        with:
+          name: offline-zip
+          path: out/*
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: out/*

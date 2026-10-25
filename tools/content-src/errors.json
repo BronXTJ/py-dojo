@@ -1,0 +1,311 @@
+{
+ "python": "3.13.5",
+ "errors": [
+  {
+   "topic": "How computers run code",
+   "error": "SyntaxError",
+   "code": "print(\"Hello\"",
+   "why": "Python reads the whole file first and can't understand an unclosed bracket.",
+   "fix": "Close every bracket and quote you open.",
+   "message": "SyntaxError: '(' was never closed",
+   "traceback": "File \"main.py\", line 1\n    print(\"Hello\"\n         ^\nSyntaxError: '(' was never closed"
+  },
+  {
+   "topic": "How computers run code",
+   "error": "NameError",
+   "code": "print(Hello)",
+   "why": "Python stops at the first line it can't run; unquoted text looks like a variable.",
+   "fix": "Put text in quotes or create the variable first.",
+   "message": "NameError: name 'Hello' is not defined",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(Hello)\n          ^^^^^\nNameError: name 'Hello' is not defined"
+  },
+  {
+   "topic": "Installing Python",
+   "error": "NameError",
+   "code": "python --version",
+   "why": "This is a terminal command; inside Python, the word python looks like an unknown variable.",
+   "fix": "Run it in the terminal (outside the >>> prompt).",
+   "message": "NameError: name 'python' is not defined",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    python --version\n    ^^^^^^\nNameError: name 'python' is not defined"
+  },
+  {
+   "topic": "The REPL",
+   "error": "SyntaxError",
+   "code": ">>> print(5)",
+   "why": "The >>> is the prompt, not code you type.",
+   "fix": "Type only what comes after >>>.",
+   "message": "SyntaxError: invalid syntax",
+   "traceback": "File \"main.py\", line 1\n    >>> print(5)\n    ^^\nSyntaxError: invalid syntax"
+  },
+  {
+   "topic": "VS Code setup",
+   "error": "NameError",
+   "code": "Print(\"hi\")",
+   "why": "VS Code runs exactly what you saved; Print with a capital P doesn't exist.",
+   "fix": "Use lowercase print and save before running.",
+   "message": "NameError: name 'Print' is not defined. Did you mean: 'print'?",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    Print(\"hi\")\n    ^^^^^\nNameError: name 'Print' is not defined. Did you mean: 'print'?"
+  },
+  {
+   "topic": "print()",
+   "error": "NameError",
+   "code": "Print(\"Colombo\")",
+   "why": "Python is case-sensitive, so Print is unknown.",
+   "fix": "Write print in lowercase.",
+   "message": "NameError: name 'Print' is not defined. Did you mean: 'print'?",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    Print(\"Colombo\")\n    ^^^^^\nNameError: name 'Print' is not defined. Did you mean: 'print'?"
+  },
+  {
+   "topic": "print()",
+   "error": "SyntaxError",
+   "code": "print(\"Colombo)",
+   "why": "The closing quote is missing, so the text never ends.",
+   "fix": "Match every opening quote with a closing one.",
+   "message": "SyntaxError: unterminated string literal (detected at line 1)",
+   "traceback": "File \"main.py\", line 1\n    print(\"Colombo)\n          ^\nSyntaxError: unterminated string literal (detected at line 1)"
+  },
+  {
+   "topic": "print()",
+   "error": "TypeError",
+   "code": "print(\"Districts: \" + 25)",
+   "why": "You can't glue text and a number with +.",
+   "fix": "Use a comma, str(25), or an f-string.",
+   "message": "TypeError: can only concatenate str (not \"int\") to str",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(\"Districts: \" + 25)\n          ~~~~~~~~~~~~~~^~~~\nTypeError: can only concatenate str (not \"int\") to str"
+  },
+  {
+   "topic": "Comments",
+   "error": "SyntaxError",
+   "code": "// a comment\nprint(1)",
+   "why": "// is a comment in other languages, not in Python.",
+   "fix": "Start comments with #.",
+   "message": "SyntaxError: invalid syntax",
+   "traceback": "File \"main.py\", line 1\n    // a comment\n    ^^\nSyntaxError: invalid syntax"
+  },
+  {
+   "topic": "Variables",
+   "error": "NameError",
+   "code": "print(parks)\nparks = 5",
+   "why": "The variable is used before it is created; Python runs top to bottom.",
+   "fix": "Create the variable on an earlier line.",
+   "message": "NameError: name 'parks' is not defined. Did you mean: 'vars'?",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(parks)\n          ^^^^^\nNameError: name 'parks' is not defined. Did you mean: 'vars'?"
+  },
+  {
+   "topic": "Variables",
+   "error": "IndentationError",
+   "code": "x = 1\n  y = 2",
+   "why": "A line started with unexpected spaces.",
+   "fix": "Start top-level lines at the left edge.",
+   "message": "IndentationError: unexpected indent",
+   "traceback": "File \"main.py\", line 2\n    y = 2\nIndentationError: unexpected indent"
+  },
+  {
+   "topic": "Naming rules",
+   "error": "SyntaxError",
+   "code": "2nd_road = 5",
+   "why": "Names cannot start with a digit.",
+   "fix": "Start names with a letter or underscore, like road_2.",
+   "message": "SyntaxError: invalid decimal literal",
+   "traceback": "File \"main.py\", line 1\n    2nd_road = 5\n    ^\nSyntaxError: invalid decimal literal"
+  },
+  {
+   "topic": "Naming rules",
+   "error": "SyntaxError",
+   "code": "bus-stops = 5",
+   "why": "The hyphen means minus, so Python sees maths on the left of =.",
+   "fix": "Use underscores: bus_stops.",
+   "message": "SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?",
+   "traceback": "File \"main.py\", line 1\n    bus-stops = 5\n    ^^^^^^^^^\nSyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?"
+  },
+  {
+   "topic": "Naming rules",
+   "error": "SyntaxError",
+   "code": "class = \"A\"",
+   "why": "class is a reserved keyword.",
+   "fix": "Pick another name, like class_name.",
+   "message": "SyntaxError: invalid syntax",
+   "traceback": "File \"main.py\", line 1\n    class = \"A\"\n          ^\nSyntaxError: invalid syntax"
+  },
+  {
+   "topic": "Numbers: int, float, Decimal",
+   "error": "ZeroDivisionError",
+   "code": "print(10 / 0)",
+   "why": "Dividing by zero has no answer.",
+   "fix": "Check the divisor is not 0 before dividing.",
+   "message": "ZeroDivisionError: division by zero",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(10 / 0)\n          ~~~^~~\nZeroDivisionError: division by zero"
+  },
+  {
+   "topic": "Numbers: int, float, Decimal",
+   "error": "OverflowError",
+   "code": "print(10.0 ** 400)",
+   "why": "The float result is too big to store.",
+   "fix": "Use smaller numbers, or ints (which can grow), or Decimal.",
+   "message": "OverflowError: (34, 'Numerical result out of range')",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(10.0 ** 400)\n          ~~~~~^^~~~~\nOverflowError: (34, 'Numerical result out of range')"
+  },
+  {
+   "topic": "Numbers: int, float, Decimal",
+   "error": "NOT an error",
+   "code": "print(0.1 + 0.2)",
+   "why": "Floats are stored in binary, so some decimals are slightly off. This is a silent surprise, not an error.",
+   "fix": "Use round(x, 2) for display or Decimal for money.",
+   "message": "0.30000000000000004",
+   "traceback": "0.30000000000000004"
+  },
+  {
+   "topic": "Strings & f-strings",
+   "error": "SyntaxError",
+   "code": "print('hello\")",
+   "why": "The quotes don't match, so the string never closes.",
+   "fix": "Open and close with the same quote type.",
+   "message": "SyntaxError: unterminated string literal (detected at line 1)",
+   "traceback": "File \"main.py\", line 1\n    print('hello\")\n          ^\nSyntaxError: unterminated string literal (detected at line 1)"
+  },
+  {
+   "topic": "Strings & f-strings",
+   "error": "AttributeError",
+   "code": "\"kandy\".uppercase()",
+   "why": "Strings have no method called uppercase.",
+   "fix": "Use .upper().",
+   "message": "AttributeError: 'str' object has no attribute 'uppercase'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    \"kandy\".uppercase()\n    ^^^^^^^^^^^^^^^^^\nAttributeError: 'str' object has no attribute 'uppercase'"
+  },
+  {
+   "topic": "Strings & f-strings",
+   "error": "TypeError",
+   "code": "\"Galle\"[0] = \"g\"",
+   "why": "Strings are immutable; you can't change one letter.",
+   "fix": "Build a new string, e.g. \"g\" + s[1:].",
+   "message": "TypeError: 'str' object does not support item assignment",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    \"Galle\"[0] = \"g\"\n    ~~~~~~~^^^\nTypeError: 'str' object does not support item assignment"
+  },
+  {
+   "topic": "Strings & f-strings",
+   "error": "IndexError",
+   "code": "\"Galle\"[10]",
+   "why": "There is no character at position 10.",
+   "fix": "Use an index less than len(s).",
+   "message": "IndexError: string index out of range",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    \"Galle\"[10]\n    ~~~~~~~^^^^\nIndexError: string index out of range"
+  },
+  {
+   "topic": "Booleans",
+   "error": "NameError",
+   "code": "flooded = true",
+   "why": "Lowercase true is not a Python value.",
+   "fix": "Write True and False with capitals.",
+   "message": "NameError: name 'true' is not defined. Did you mean: 'True'?",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    flooded = true\n              ^^^^\nNameError: name 'true' is not defined. Did you mean: 'True'?"
+  },
+  {
+   "topic": "Booleans",
+   "error": "SyntaxError",
+   "code": "if 5 = 5:\n    print(\"same\")",
+   "why": "= stores a value; it can't compare.",
+   "fix": "Use == to compare.",
+   "message": "SyntaxError: cannot assign to literal here. Maybe you meant '==' instead of '='?",
+   "traceback": "File \"main.py\", line 1\n    if 5 = 5:\n       ^\nSyntaxError: cannot assign to literal here. Maybe you meant '==' instead of '='?"
+  },
+  {
+   "topic": "None",
+   "error": "AttributeError",
+   "code": "zone = None\nzone.upper()",
+   "why": "None has no methods like upper().",
+   "fix": "Check with if zone is not None: before using it.",
+   "message": "AttributeError: 'NoneType' object has no attribute 'upper'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 2, in <module>\n    zone.upper()\n    ^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'upper'"
+  },
+  {
+   "topic": "None",
+   "error": "TypeError",
+   "code": "print(None + 1)",
+   "why": "None is not a number, so maths fails.",
+   "fix": "Give the variable a real value first.",
+   "message": "TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(None + 1)\n          ~~~~~^~~\nTypeError: unsupported operand type(s) for +: 'NoneType' and 'int'"
+  },
+  {
+   "topic": "input()",
+   "error": "TypeError",
+   "code": "age = \"20\"  # what input() returns\nprint(age + 1)",
+   "why": "input() always returns text, and text + number fails.",
+   "fix": "Convert first: int(input()).",
+   "message": "TypeError: can only concatenate str (not \"int\") to str",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 2, in <module>\n    print(age + 1)\n          ~~~~^~~\nTypeError: can only concatenate str (not \"int\") to str"
+  },
+  {
+   "topic": "input()",
+   "error": "EOFError",
+   "code": "name = input()",
+   "why": "input() reached the end of input with nothing to read (happens when no keyboard input exists).",
+   "fix": "Type an answer, or put lines in the playground's input box.",
+   "message": "EOFError: EOF when reading a line",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    name = input()\nEOFError: EOF when reading a line"
+  },
+  {
+   "topic": "input()",
+   "error": "KeyboardInterrupt",
+   "code": "",
+   "why": "Pressing Ctrl+C while a program waits or runs stops it on purpose.",
+   "fix": "Nothing is broken; just run the program again.",
+   "message": "KeyboardInterrupt",
+   "traceback": "Traceback (most recent call last):\n  ...\nKeyboardInterrupt"
+  },
+  {
+   "topic": "Type conversion",
+   "error": "ValueError",
+   "code": "int(\"abc\")",
+   "why": "The text is not a number, so it can't be converted.",
+   "fix": "Check the text is digits, or use try/except later (Blue Belt).",
+   "message": "ValueError: invalid literal for int() with base 10: 'abc'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    int(\"abc\")\n    ~~~^^^^^^^\nValueError: invalid literal for int() with base 10: 'abc'"
+  },
+  {
+   "topic": "Type conversion",
+   "error": "ValueError",
+   "code": "int(\"2.5\")",
+   "why": "int() only accepts whole-number text.",
+   "fix": "Use int(float(\"2.5\")) or float().",
+   "message": "ValueError: invalid literal for int() with base 10: '2.5'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    int(\"2.5\")\n    ~~~^^^^^^^\nValueError: invalid literal for int() with base 10: '2.5'"
+  },
+  {
+   "topic": "Type conversion",
+   "error": "TypeError",
+   "code": "int(None)",
+   "why": "None can't be turned into a number.",
+   "fix": "Make sure the value isn't None first.",
+   "message": "TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    int(None)\n    ~~~^^^^^^\nTypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'"
+  },
+  {
+   "topic": "Operators & precedence",
+   "error": "TypeError",
+   "code": "print(\"5\" * \"2\")",
+   "why": "You can't multiply text by text.",
+   "fix": "Convert to numbers first: int(\"5\") * int(\"2\").",
+   "message": "TypeError: can't multiply sequence by non-int of type 'str'",
+   "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 1, in <module>\n    print(\"5\" * \"2\")\n          ~~~~^~~~~\nTypeError: can't multiply sequence by non-int of type 'str'"
+  },
+  {
+   "topic": "Operators & precedence",
+   "error": "NOT an error",
+   "code": "print(2 ** 3 ** 2)",
+   "why": "** groups right to left, so this is 2 ** 9 = 512, not 64. A silent logic surprise.",
+   "fix": "Add brackets to make your intent clear: (2 ** 3) ** 2.",
+   "message": "512",
+   "traceback": "512"
+  },
+  {
+   "topic": "Operators & precedence",
+   "error": "NOT an error",
+   "code": "print(7 / 2 * 2)",
+   "why": "Same-level operators run left to right: (7 / 2) * 2 = 7.0. Usually fine, but check your intent.",
+   "fix": "Use brackets when unsure.",
+   "message": "7.0",
+   "traceback": "7.0"
+  }
+ ]
+}
