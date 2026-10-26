@@ -66,6 +66,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Build the app
+        working-directory: web
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run build
+          test -s dist/index.html
+          test -s dist/pyodide/bundle.js
+
       - name: Download binaries
         uses: actions/download-artifact@v8
         with:
@@ -82,8 +98,14 @@ jobs:
           fi
           ROOT="py-dojo-${VERSION}"
           STAGE="bundle/${ROOT}"
-          mkdir -p "${STAGE}/bin" out
-          tar -C app -cf - . | tar -C "${STAGE}" -xf -
+          mkdir -p "${STAGE}/bin" "${STAGE}/data" out
+          cp -a web/dist/. "${STAGE}/"
+          cp packaging/.nojekyll "${STAGE}/"
+          cp packaging/README.txt "${STAGE}/README.txt"
+          cp packaging/start-linux.sh "${STAGE}/start-linux.sh"
+          cp "packaging/Start Py Dojo (Mac).command" "${STAGE}/Start Py Dojo (Mac).command"
+          cp "packaging/Start Py Dojo (Windows).bat" "${STAGE}/Start Py Dojo (Windows).bat"
+          cp packaging/data/README.txt "${STAGE}/data/README.txt"
           for bin in dist/bin/*; do
             cp -a "$bin" "${STAGE}/bin/"
           done
@@ -103,6 +125,8 @@ jobs:
               pydojo-windows-x64.exe \
               > ../SHA256SUMS.txt
           )
+          test -s "${STAGE}/index.html"
+          test -s "${STAGE}/pyodide/bundle.js"
           (
             cd bundle
             zip -r -X "../out/py-dojo-${VERSION}-offline.zip" "${ROOT}"

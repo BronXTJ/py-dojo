@@ -3,54 +3,68 @@
 ## Layout
 
 ```text
-app/index.html          the page learners use; content constants live in this file
-app/pyodide/bundle.js   vendored Pyodide 0.26.4 core, unmodified
+web/                    React + TypeScript source, tests, and the Vite config
+app/pyodide/            vendored Pyodide 0.26.4 core, unmodified
+packaging/              launchers, zip README, .nojekyll, data/README.txt
 server/                 Go helper
-tools/content-src/      generators and verifiers
+tools/content-src/      inputs for scripts/gen-content.py
 docs/                   these notes, the banner, and screenshots
 ```
 
-The page does not fetch the JSON files in `tools/content-src/`. Those files are the last generated snapshot. Shipping a change means updating the constant in `app/index.html` as well.
+The page reads `web/src/content`. It does not fetch the JSON files in `tools/content-src/`.
+
+## App scripts
+
+From `web/`, with Node.js 22 (the version CI installs):
+
+| Script | What it does |
+|---|---|
+| `npm run dev` | Vite dev server. `/pyodide/*` is served from `app/pyodide` (or `PYDOJO_PYODIDE`). |
+| `npm run typecheck` | `tsc -p tsconfig.json` |
+| `npm run lint` | ESLint |
+| `npm test` | Vitest, `src/**/*.test.ts` |
+| `npm run build` | Typecheck, single-file Vite build, copy Pyodide into `dist/pyodide` |
+| `npm run qa -- chromium` | Acceptance suite. Also `firefox` or `webkit` if those browsers exist. |
+| `npm run verify` | Run curriculum snippets in Pyodide. Not part of CI. |
+| `npm run gen` | Regenerate content. Not part of CI. Needs the files below. |
+
+`web/dist/` is gitignored. GitHub Pages and the release workflow produce it with `npm ci` and `npm run build`.
+
+### Acceptance suite
+
+`web/tests/qa.cjs` defaults to `file://` plus `web/dist/index.html`, and writes shots under `web/qa-results/shots/` (gitignored).
+
+| Variable | Role |
+|---|---|
+| `PYDOJO_URL` | Page to open |
+| `PYDOJO_SHOTS` | Screenshot directory |
+| `PYDOJO_SIZES` | Comma-separated subset of `laptop,phone,ipad,desktop` |
+| `PYDOJO_ONLY` | `layout`, `journey`, `base`, or `a11y` |
+| `CHROME_PATH` | Chromium executable. Default `/usr/bin/google-chrome`. |
+| `CHROME_NO_SANDBOX` | Set to `1` to pass `--no-sandbox` and `--disable-dev-shm-usage`. |
+
+`playwright-core` does not download a browser. CI installs Google Chrome so `/usr/bin/google-chrome` exists.
 
 ## Regenerate content
 
-Work in `tools/content-src/`. You need Python 3 and Node.js. The scripts call `python3`.
+`web/scripts/gen-content.py` writes `web/src/content/{curriculum,depth,glossary,errors,bank,code,spot}.ts`.
 
-| Source | Writes | What it checks |
-|---|---|---|
-| `glossary_src.py` | `glossary.json` | Each code sample runs, and the captured stdout is stored |
-| `errors_src.py` | `errors.json` | Each snippet raises the named error, or exits 0 when the entry is "NOT an error". The message and traceback are stored. |
-| `depth_src.py` | `depth.json` | Try-it and deeper snippets are run and their output is stored |
-| `bank.js` (and `bank.ts`) | nothing | Lesson text and exercise templates. `verify.js` reads `bank.js`. |
-| `code.js` | nothing | Playground templates. `verify_code.js` reads it. |
-| `spot.js` | nothing | Spot-the-error templates. `verify_spot.js` reads it. |
+It reads:
 
-```bash
-cd tools/content-src
-python3 glossary_src.py
-python3 errors_src.py
-python3 depth_src.py
-node verify.js
-node verify_code.js
-node verify_spot.js
-```
+- `tools/content-src/depth.json`
+- `tools/content-src/glossary.json` (must be 204 entries)
+- `tools/content-src/bank.ts`
+- `tools/content-src/code.js`
+- `tools/content-src/spot.js`
+- `/tmp/olddata.json`, a JSON object with `BELTS`, `BELT_ERR`, `ERRS`, `ERR_PY`, and `ERR_HIER` from the original app
 
-`errors_src.py` records `sys.version`. The encyclopedia in the app was captured with **CPython 3.13.5** (`ERR_PY` in `app/index.html`). Running the script on another version can change punctuation and caret lines. Keep the committed messages and the version string in step.
+The nine later-belt error snippets are executed with `python3` on the machine that runs the script. The committed encyclopedia was captured with CPython 3.13.5 (`ERR_PY` in `web/src/content/errors.ts`). Another interpreter can change the message text. Do not regenerate on a different version unless you mean to update `ERR_PY` and review the diff.
 
-`bank.ts` is the typed copy of the lesson bank. `bank.js` is what `verify.js` and the page use. If you change one, change the other.
+`lessons.ts` is hand-written and is not overwritten.
 
-After a generator run, copy the new data into the matching `const` in `app/index.html`:
+`tools/content-src/verify.js`, `verify_code.js`, and `verify_spot.js` check the older content sources. They are not the React test suite. CI runs Vitest and `tests/qa.cjs`.
 
-| Constant | Comes from |
-|---|---|
-| `GLOSS` | `glossary.json` |
-| `ERRS` | the `errors` array in `errors.json`, and set `ERR_PY` to the `python` field |
-| `DEPTH` | `depth.json` |
-| `BANK` | `bank.js` |
-| `CODE_TPL` | `code.js` |
-| `SPOT_TPL` | `spot.js` |
-
-There is no splice script. A review should be able to see the constant change in the diff.
+The map outline in `web/src/geo.ts` can be regenerated with `web/tests/project-map.py` when a geoBoundaries GeoJSON is available locally. That file is not in the repository. The committed path is the simplified trace (equirectangular, Douglas–Peucker).
 
 ## Build the helper
 
@@ -70,35 +84,47 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-s -w" -o /tm
 
 `go.mod` says `go 1.21` and the program uses only the standard library. The same four targets are what [`.github/workflows/release.yml`](../.github/workflows/release.yml) builds.
 
-Put a binary in `app/bin/` only on your machine. That directory is gitignored. The release workflow builds a zip whose root looks like this:
+Put a binary in a `bin/` directory only on your machine or inside the release zip. `app/bin/` is gitignored.
+
+The release zip root looks like this:
 
 ```text
 py-dojo-<version>/
-├── index.html
-├── pyodide/
+├── index.html              Vite build
+├── pyodide/                bundle.js and NOTICE.txt
 ├── data/README.txt
-├── bin/                 the four binaries
+├── bin/                    the four binaries
 ├── Start Py Dojo (Windows).bat
 ├── Start Py Dojo (Mac).command
 ├── start-linux.sh
 ├── README.txt
+├── .nojekyll
 ├── LICENSE
 ├── THIRD_PARTY_NOTICES.md
-└── SHA256SUMS.txt       hashes of the four binaries
+└── SHA256SUMS.txt          hashes of the four binaries
 ```
 
 The zip and a hash of the zip are attached to the GitHub Release for a `v*.*.*` tag. A manual run of the workflow uploads the zip as an artifact and does not publish a release.
 
+Point the helper at a built tree with `PYDOJO_DIR` when the binary is not sitting in `bin/` next to `index.html`:
+
+```bash
+PYDOJO_DIR=/path/to/web/dist PYDOJO_NO_BROWSER=1 /tmp/pydojo
+```
+
 ## Pages
 
-[`.github/workflows/pages.yml`](../.github/workflows/pages.yml) publishes the `app/` directory, including the Pyodide bundle and the `.nojekyll` file. It does not publish `server/`, `tools/`, or `docs/`.
+[`.github/workflows/pages.yml`](../.github/workflows/pages.yml) runs `npm ci` and `npm run build` in `web/`, then uploads a site directory that contains `dist` (the HTML and `pyodide/`) and `packaging/.nojekyll`. It does not upload `server/`, `tools/`, or `docs/`.
 
-The site URL is <https://bronxtj.github.io/py-dojo/>. To try that path locally, serve a parent directory so the app is mounted at `/py-dojo/` and open it with a hostname that is not `localhost` if you want the browser-storage path. On `localhost` the page will look for the helper.
+The site URL is <https://bronxtj.github.io/py-dojo/>. `base` is `./`, so asset URLs stay relative. Hash routes mean the host does not need a fallback to `index.html`.
+
+To try that path locally, the acceptance suite already does: it symlinks `dist` to `<tmpdir>/py-dojo` and opens `http://localhost:<port>/py-dojo/`.
 
 ## Do not commit
 
-- `app/data/*.json` — someone's progress
+- `web/node_modules/`, `web/dist/`, `web/qa-results/`
+- `app/data/*.json` — someone's progress, if a client used the helper API
 - `app/bin/` — built helpers
-- `node_modules/`, virtualenvs, editor folders
+- virtualenvs, editor folders
 
 The Pyodide bundle is about 18 MB, under GitHub's 100 MB file limit, and it stays in git so a clone and the Pages site can both run offline.

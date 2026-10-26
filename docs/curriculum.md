@@ -1,15 +1,15 @@
 # Curriculum
 
-Ten belts, 119 topics. GIS shows up inside each belt instead of as a course at the end. A new profile starts at White Belt with 0 XP. The next belt opens when XP reaches the number in the table. XP on this page comes from the practice quiz (+10 the first time), glossary words (+5), Spot the error (+5 the first time for that item), and a playground task passed for the first time (+15).
+Ten belts, 119 topics. GIS shows up inside each belt instead of as a course at the end. A new save starts at White Belt with 0 XP. The belt table below is the map in `web/src/content/curriculum.ts`. Yellow through Master stay locked on the home screen and are labelled coming soon. XP amounts for lessons, review, and practice are listed in [architecture.md](architecture.md#progress).
 
 > [!NOTE]
-> White Belt is the path that is built: 15 lessons, worked examples, generated questions, 9 diagrams, playground tasks, and captured tracebacks. Yellow through Master are on the map. Each of those belts has its topics, a GIS line, a boss-fight title, glossary entries, and a one-line note about errors you will meet. Their lessons are not in the app yet. The belt map says so when you open a locked belt.
+> White Belt is the path that is built: 15 lessons, each with seven stages (Hook, Learn, Watch, Try, Fix the bug, Quiz, Reward), plus the error encyclopedia and the glossary. Yellow through Master are on the map. Each of those belts has its topics, a GIS line, a boss-fight title, glossary entries, and a note about errors you will meet. Their lessons are not in the app yet.
 
 ## Belts
 
 | Belt | XP | Theme | Topics | Glossary terms | Built today |
 |---|---:|---|---:|---:|---|
-| White | 0 | Foundations | 15 | 65 | Lessons, exercises, diagrams, playground, captured errors |
+| White | 0 | Foundations | 15 | 65 | 15 lessons, seven stages each, captured errors |
 | Yellow | 300 | Control flow | 9 | 19 | Map, glossary, planned error note |
 | Orange | 700 | Data structures | 11 | 21 | Map, glossary, planned error note |
 | Green | 1200 | Functions and modules | 12 | 22 | Map, glossary, planned error note |
@@ -31,6 +31,8 @@ Glossary counts are the `belt` field on the 204 entries in the page.
 
 **Errors you meet.** SyntaxError, IndentationError, NameError, TypeError, ValueError, ZeroDivisionError, AttributeError, IndexError, OverflowError, EOFError, KeyboardInterrupt, and float surprises that are not errors.
 
+Each of these 15 topics is one lesson, `white-1` through `white-15`, in `web/src/content/lessons.ts`. The stage order is fixed in `STAGES` in `web/src/content/index.ts`.
+
 | # | Topic |
 |---:|---|
 | 1 | How computers run code |
@@ -49,9 +51,7 @@ Glossary counts are the `belt` field on the 204 entries in the page.
 | 14 | Type conversion |
 | 15 | Operators & precedence |
 
-Each of these 15 topics has a lesson in the page (idea, walk-through, a try-it whose output was produced by running the code, common mistakes, and a deeper note) and generated predict-the-output questions. Nine topics also have a diagram drawn in HTML: How computers run code, The REPL, print(), Variables, Strings & f-strings, Type conversion, Operators & precedence, input(), and Booleans.
-
-The lesson bank holds **45 exercise templates**. The playground holds **9 coding templates**. Spot the error holds **14 templates**. The practice quiz on the home tab is **5 fixed questions**. Templates fill in cities, counts, and coordinates, so a second visit is not the same worksheet.
+Practice builds up to five exercises for a lesson from the coding templates, the lesson's exercise bank, and spot-the-error templates (`makeSet` in `web/src/screens/Practice.tsx`). Cities, counts, and coordinates are filled in from a seed, so a new set is not the same worksheet. The lesson quiz is three questions from that lesson's bank (`quizFor`).
 
 ## Yellow Belt — 300 XP — Control flow
 

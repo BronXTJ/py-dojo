@@ -29,8 +29,10 @@ __pycache__/
 .venv/
 venv/
 
-# Node
+# Node and the Vite app
 node_modules/
+web/dist/
+web/qa-results/
 
 # Go
 server/pydojo

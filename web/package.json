@@ -1,0 +1,37 @@
+{
+  "name": "py-dojo-react",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build && node scripts/copy-pyodide.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write src",
+    "test": "vitest run",
+    "qa": "node tests/qa.cjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "verify": "node tests/verify.cjs",
+    "gen": "python3 scripts/gen-content.py"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^17.13.0",
+    "playwright-core": "^1.64.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.0",
+    "vite": "^5.4.21",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vitest": "^2.1.9"
+  }
+}

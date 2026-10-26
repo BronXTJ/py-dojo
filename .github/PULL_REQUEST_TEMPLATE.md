@@ -4,11 +4,11 @@ What changed, and why a learner or a maintainer would care.
 
 ## How it was checked
 
-- [ ] App still opens from `app/index.html` (local server or the Pages path `/py-dojo/`)
-- [ ] `node verify_code.js` and `node verify_spot.js` print `problems: 0`, if content changed
+- [ ] `npm run typecheck`, `npm run lint`, and `npm test` in `web/`
+- [ ] `npm run build`, and `npm run qa -- chromium` if the UI or the build changed
 - [ ] `gofmt` and `go build` for `server/`, if the helper changed
-- [ ] No progress JSON and no binaries added
+- [ ] No progress JSON, no helper binaries, and no `web/dist/` added
 
 ## Notes
 
-Screenshots, browser, and whether progress was saved in the browser or in `app/data/`.
+Browser, and whether you opened GitHub Pages, a release zip, `web/dist/index.html`, or the dev server.

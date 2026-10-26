@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Typecheck, lint, test, acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: web
+        run: npm run typecheck
+
+      - name: Lint
+        working-directory: web
+        run: npm run lint
+
+      - name: Unit tests
+        working-directory: web
+        run: npm test
+
+      - name: Build
+        working-directory: web
+        run: npm run build
+
+      - name: Install Google Chrome
+        run: |
+          set -euo pipefail
+          wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get update
+          sudo apt-get install -y /tmp/chrome.deb
+          test -x /usr/bin/google-chrome
+          google-chrome --version
+
+      - name: Acceptance suite (Chromium)
+        working-directory: web
+        env:
+          PYDOJO_SHOTS: /tmp/pydojo-shots
+        run: npm run qa -- chromium
+
+  helper:
+    name: Build Go helper
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: server/go.mod
+          cache: false
+
+      - name: Build
+        working-directory: server
+        run: |
+          set -euo pipefail
+          gofmt -l . | tee /tmp/gofmt.txt
+          test ! -s /tmp/gofmt.txt
+          CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /tmp/pydojo .
