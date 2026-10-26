@@ -18,9 +18,9 @@ w("curriculum.ts", 'import type { Belt } from "../types";\nexport const BELTS: B
   ";\nexport const BELT_ERR: Record<string, string> = " + J(old["BELT_ERR"]) + ";\n")
 # depth
 w("depth.ts", 'import type { Depth } from "../types";\nexport const DEPTH: Record<string, Depth> = ' + J(json.load(open(SRC / "depth.json"))) + ";\n")
-# glossary
-g = json.load(open(SRC / "glossary.json")); assert len(g) == 204
-w("glossary.ts", 'import type { GlossEntry } from "../types";\nexport const GLOSSARY: GlossEntry[] = ' + J(g) + ";\n")
+# glossary lives in scripts/glossary_build.py (original 204 plus the expanded curriculum).
+# This script must not overwrite src/content/glossary.ts.
+print("glossary.ts is owned by scripts/glossary_build.py; left unchanged")
 
 # errors: 34 lesson errors from the old app + 9 errors learners meet on later belts (messages captured from real runs)
 errs = [dict(e, belt="White") for e in old["ERRS"]]

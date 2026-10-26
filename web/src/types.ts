@@ -28,6 +28,12 @@ export interface GlossEntry {
   gis: string;
   related: string;
   belt: number;
+  /** Curriculum area, finer than the belt for entries added after the original list. */
+  category: string;
+  /** False means the snippet is display-only and must not be executed in Pyodide. */
+  run: boolean;
+  /** White Belt lesson id when that lesson teaches the idea, otherwise "". */
+  lesson: string;
 }
 export interface ErrEntry {
   topic: string;

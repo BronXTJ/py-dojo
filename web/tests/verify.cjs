@@ -1,5 +1,6 @@
 // Runs every lesson answer, solution, quiz answer, bug, error example and glossary example in the real Pyodide engine
 // inside the built app. Usage: node tests/verify.cjs [samples]
+// node tests/verify.cjs glossary   runs only glossary examples that are marked runnable.
 const pw = require('playwright-core');
 const path = require('path');
 const URL = process.env.PYDOJO_URL || ('file://' + path.join(__dirname, '../dist/index.html'));
@@ -11,8 +12,10 @@ const URL = process.env.PYDOJO_URL || ('file://' + path.join(__dirname, '../dist
   const pg = await b.newPage();
   await pg.goto(URL);
   for (let i = 0; i < 120; i++) { const ok = await pg.evaluate(async () => (await window.pydojoTest.runPy('print(1)')).err === null); if (ok) break; await pg.waitForTimeout(1000); }
-  const res = await pg.evaluate(async (n) => {
-    const T = window.pydojoTest; const KNOWN = { 'glossary asyncio': 'asyncio.run() needs a real event loop; Pyodide runs on the browser loop', 'glossary SQL': 'sqlite3 is not in the offline Pyodide bundle' }; const rows = T.checks(n); const out = { total: rows.length, groups: {}, fails: [], warns: [], known: [] };
+  const glossaryOnly = process.argv[2] === 'glossary';
+  const samples = glossaryOnly ? 1 : +(process.argv[2] || 25);
+  const res = await pg.evaluate(async ({ n, glossaryOnly }) => {
+    const T = window.pydojoTest; const KNOWN = { 'glossary asyncio': 'asyncio.run() needs a real event loop; Pyodide runs on the browser loop', 'glossary SQL': 'sqlite3 is not in the offline Pyodide bundle' }; const rows = glossaryOnly ? T.glossaryChecks() : T.checks(n); const out = { total: rows.length, groups: {}, fails: [], warns: [], known: [] };
     for (const [label, code, stdin, exp, mustErr] of rows) {
       const r = await T.runPy(code, stdin);
       let buf = ''; for (const e of r.ev) if (e[0] === 'out') buf += e[1];
@@ -29,7 +32,7 @@ const URL = process.env.PYDOJO_URL || ('file://' + path.join(__dirname, '../dist
       if (ok) out.groups[g].pass++; else { out.groups[g].fail++; out.fails.push(label + ' => ' + note + ' (expected ' + JSON.stringify(exp) + ')'); }
     }
     return out;
-  }, +(process.argv[2] || 25));
+  }, { n: samples, glossaryOnly });
   console.log(JSON.stringify(res, null, 1));
   await b.close();
   process.exit(res.fails.length ? 1 : 0);

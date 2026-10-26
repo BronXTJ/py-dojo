@@ -79,7 +79,7 @@ Learning Python for GIS usually means a tutorial in one tab, an interpreter in a
 | 🎓 | **Seven stages in every lesson** | Hook, Learn, Watch, Try, Fix the bug, Quiz, and Reward. Watch asks for a prediction and a time-travel scrubber. Try is a Living Lanka task. Reward is the Founder's Challenge. |
 | 🐍 | **Python in the browser** | Pyodide 0.26.4 runs CPython 3.12.1 from `pyodide/bundle.js`, in an inline worker. A run longer than 4 seconds is stopped. |
 | ⚠️ | **Error encyclopedia** | 43 entries. Search, an exception family tree, and a button that runs the snippet. `ERR_PY` records CPython 3.13.5 as the capture version. |
-| 📖 | **Glossary, 204 terms** | Search and a belt filter. Word of the Day is one term per local calendar day, wrapping after 204 terms. |
+| 📖 | **Glossary, 1,247 terms** | Search, belt and category filters, and an A–Z jump. The list is windowed so a thousand cards stay responsive. Word of the Day is one term per local calendar day, wrapping after 1,247 terms. |
 | 🗺️ | **Living Lanka** | A simplified Sri Lanka outline and city pins in the lesson scene. The outline traces geoBoundaries gbOpen LKA ADM0, CC BY 4.0. |
 | 🔁 | **Review** | A Leitner queue fed by quiz answers. Box gaps are 0, 1, 3, 7, 14, and 30 days. |
 | 🎲 | **Practice** | Up to five fresh exercises for an unlocked lesson: coding tasks, quiz cards, and spot-the-error. |
@@ -108,7 +108,7 @@ Learning Python for GIS usually means a tutorial in one tab, an interpreter in a
   </tr>
   <tr>
     <td><img src="docs/screenshots/desktop-dark-errors.png" alt="Error encyclopedia in the dark theme"><br><sub><b>Error encyclopedia, 1920 × 1080.</b> 43 entries, with search.</sub></td>
-    <td><img src="docs/screenshots/desktop-dark-glossary.png" alt="Glossary in the dark theme"><br><sub><b>Glossary, 1920 × 1080.</b> 204 terms and Word of the Day.</sub></td>
+    <td><img src="docs/screenshots/desktop-dark-glossary.png" alt="Glossary in the dark theme"><br><sub><b>Glossary, 1920 × 1080.</b> Search, filters, and Word of the Day. The page now lists 1,247 terms.</sub></td>
   </tr>
   <tr>
     <td><img src="docs/screenshots/laptop-dark-review.png" alt="Spaced-repetition review screen"><br><sub><b>Review, 1280 × 800.</b> Cards come back on a schedule.</sub></td>
@@ -138,7 +138,7 @@ Hash routes (`#/lesson/white-5/2` and the rest) keep the same build working from
 The Go helper is optional. It serves the folder on `127.0.0.1`. The React app does not call its `/api/save`, `/api/load`, or `/api/profiles` routes. Progress stays in the browser either way.
 
 > [!NOTE]
-> Word of the Day uses the local calendar day: the glossary index is that day number modulo 204. It does not depend on when the profile was created.
+> Word of the Day uses the local calendar day: the glossary index is that day number modulo 1,247, the length of the glossary. It does not depend on when the profile was created.
 
 ---
 
@@ -194,7 +194,7 @@ More detail: [`docs/architecture.md`](docs/architecture.md).
 | Black | 5,200 XP | Under the hood | 9 | Map, glossary, error note |
 | Master | 6,500 XP | Real-world mastery | 15 | Map, glossary, error note |
 
-119 topics. 204 glossary terms across the ten belts (65 of them on White). The White Belt GIS thread uses coordinates as floats (Colombo 6.9271, 79.8612), f-strings for labels, and a plain explanation of a CRS. Later belts move through bounding boxes, GeoJSON-shaped dicts, haversine distance, files, classes, streaming, packaging, and the Master capstone.
+119 topics. 1,247 glossary terms across the ten belts (115 of them on White). The White Belt GIS thread uses coordinates as floats (Colombo 6.9271, 79.8612), f-strings for labels, and a plain explanation of a CRS. Later belts move through bounding boxes, GeoJSON-shaped dicts, haversine distance, files, classes, streaming, packaging, and the Master capstone.
 
 Every topic name, GIS line, and boss-fight title is in [`docs/curriculum.md`](docs/curriculum.md).
 
@@ -287,7 +287,7 @@ npm run qa -- chromium
 |---|---|
 | `npm run typecheck` | `tsc -p tsconfig.json` on `web/src` (strict, `noUncheckedIndexedAccess`) |
 | `npm run lint` | ESLint with typescript-eslint strict and the React hooks plugin |
-| `npm test` | Vitest. `src/checker.test.ts` asserts 15 lessons, 43 errors, 204 glossary terms, and the 10 belt names, plus checkers, the router, and storage sanitize. |
+| `npm test` | Vitest. `src/checker.test.ts` asserts 15 lessons, 43 errors, at least 1,000 unique glossary terms with related links that resolve, and the 10 belt names, plus checkers, the router, and storage sanitize. |
 | `npm run build` | Typecheck, Vite single-file build, copy `app/pyodide` into `dist/pyodide` |
 | `npm run qa -- chromium` | Playwright acceptance suite against `dist/index.html`: layout, contrast, and the Living Lanka scene at four sizes in dark and light; a 15-lesson journey; the page served at `/py-dojo/`; reduced motion, keyboard focus, and 44 pixel targets |
 

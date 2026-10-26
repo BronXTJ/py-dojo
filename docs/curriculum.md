@@ -9,19 +9,19 @@ Ten belts, 119 topics. GIS shows up inside each belt instead of as a course at t
 
 | Belt | XP | Theme | Topics | Glossary terms | Built today |
 |---|---:|---|---:|---:|---|
-| White | 0 | Foundations | 15 | 65 | 15 lessons, seven stages each, captured errors |
-| Yellow | 300 | Control flow | 9 | 19 | Map, glossary, planned error note |
-| Orange | 700 | Data structures | 11 | 21 | Map, glossary, planned error note |
-| Green | 1200 | Functions and modules | 12 | 22 | Map, glossary, planned error note |
-| Blue | 1800 | Robust code | 12 | 14 | Map, glossary, planned error note |
-| Purple | 2500 | OOP | 13 | 16 | Map, glossary, planned error note |
-| Brown | 3300 | Pythonic and advanced | 11 | 12 | Map, glossary, planned error note |
-| Red | 4200 | Testing and quality | 12 | 12 | Map, glossary, planned error note |
-| Black | 5200 | Under the hood | 9 | 8 | Map, glossary, planned error note |
-| Master | 6500 | Real-world mastery | 15 | 15 | Map, glossary, planned error note |
-| **Total** |  |  | **119** | **204** |  |
+| White | 0 | Foundations | 15 | 115 | 15 lessons, seven stages each, captured errors |
+| Yellow | 300 | Control flow | 9 | 44 | Map, glossary, planned error note |
+| Orange | 700 | Data structures | 11 | 101 | Map, glossary, planned error note |
+| Green | 1200 | Functions and modules | 12 | 102 | Map, glossary, planned error note |
+| Blue | 1800 | Robust code | 12 | 155 | Map, glossary, planned error note |
+| Purple | 2500 | OOP | 13 | 72 | Map, glossary, planned error note |
+| Brown | 3300 | Pythonic and advanced | 11 | 85 | Map, glossary, planned error note |
+| Red | 4200 | Testing and quality | 12 | 116 | Map, glossary, planned error note |
+| Black | 5200 | Under the hood | 9 | 76 | Map, glossary, planned error note |
+| Master | 6500 | Real-world mastery | 15 | 381 | Map, glossary, planned error note |
+| **Total** |  |  | **119** | **1,247** |  |
 
-Glossary counts are the `belt` field on the 204 entries in the page.
+Glossary counts are the `belt` field on the 1,247 entries in the page. Entries also carry a category. Counts for the larger categories: Data structures 66, Foundations 65, Exceptions 53, Functions 52, GIS 52, Stdlib 50, Control flow 44, OOP 44, APIs and web 40, SQL and databases 37, Algorithms 35, Data engineering 35, Machine learning 35, Packaging 31, Data types 30, Typing 30, Testing 30, Git and CI 30, pandas 30, Unicode 30, Dunder methods 28, Concurrency 28, Files 27, NumPy 27, System design 25, Style and tooling 24, Security 24, Iterators and generators 23, Core syntax 20, Decorators and metaclasses 20, CLI 20, Memory 20, Performance 20, matplotlib 17, Docker 16, Design patterns 16, Real-world 15, Robust code 14, Advanced Python 12, Testing and tools 12, Scraping 12, Internals 8.
 
 ## White Belt
 
@@ -147,7 +147,7 @@ Topics: NumPy; pandas; matplotlib; SQL / SQLAlchemy; requests; FastAPI; web scra
 
 **Error encyclopedia.** 34 entries whose messages were captured with CPython 3.13.5: 31 exceptions and 3 surprises marked "NOT an error" (float addition, right-to-left `**`, and left-to-right `/` and `*`). The All filter also shows one card per later belt, 9 cards, so the full list is **43 cards**. Family-tree view shows 11 chains under BaseException, checked against that same Python.
 
-**Glossary and Word of the Day.** 204 terms. 173 include a code example whose output was captured by running it. 108 include a GIS note. The word of the day walks the list one term per UTC day from the day the profile started, then wraps. "Got it" marks a term learned.
+**Glossary and Word of the Day.** 1,247 terms. 1,000 examples are marked runnable: the build script checks them with CPython, and `node tests/verify.cjs glossary` runs that same set in Pyodide 0.26.4. 216 further snippets are display-only: asyncio event-loop edges, sqlite3, starting a thread (this Pyodide build rejects it), and third-party libraries that are not in the vendored runtime. The word of the day is one term per local calendar day: the index is that day number modulo 1,247. A term can link back to a White Belt lesson when that lesson teaches it.
 
 ## Roadmap
 

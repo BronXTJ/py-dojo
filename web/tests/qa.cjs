@@ -153,8 +153,10 @@ async function journey(){
   // errors + glossary
   await nav(pg,'#/errors');const ec=await pg.textContent('#errCount');if(!/of 43/.test(ec))fail('errors count',ec);await pg.fill('#errQ','NameError');await pg.waitForTimeout(200);const ec2=await pg.locator('.errcard').count();if(ec2<5)fail('error search',ec2);
   await pg.locator('.tryerr').first().click();await pg.locator('.realout').first().waitFor();if(!/NameError/.test(await pg.locator('.realout').first().textContent()))fail('error run for real');
-  await nav(pg,'#/glossary');const gc=await pg.textContent('#glCount');if(!/204 of 204/.test(gc))fail('glossary count',gc);if(!await pg.isVisible('#wodCard'))fail('word of day');
+  await nav(pg,'#/glossary');const gc=await pg.textContent('#glCount');const gm=(gc||'').match(/Showing (\d+) of (\d+) terms/);if(!gm||gm[1]!==gm[2]||+gm[1]<1000)fail('glossary count',gc);if(!await pg.isVisible('#wodCard'))fail('word of day');
   await pg.fill('#glQ','string');await pg.waitForTimeout(200);if(await pg.locator('.gterm').count()<1)fail('glossary search');
+  await pg.selectOption('#glCat','Unicode');await pg.waitForTimeout(100);if(await pg.locator('.gterm').count()<1)fail('glossary category');
+  await pg.selectOption('#glCat','all');await pg.click('.gl-alpha button[data-letter="S"]');await pg.waitForTimeout(100);if(await pg.locator('.gterm').count()<1)fail('glossary alpha');
   // export -> wipe -> import
   await nav(pg,'#/');const [dl]=await Promise.all([pg.waitForEvent('download'),pg.click('#export')]);const file=path.join(require('os').tmpdir(),'pd-export-'+BR+'.json');await dl.saveAs(file);
   const xpBefore=await pg.textContent('#xp');await pg.evaluate(()=>window.pydojoTest.reset('dark'));await pg.waitForTimeout(100);

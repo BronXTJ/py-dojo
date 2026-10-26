@@ -54,7 +54,15 @@ const pydojoTest = {
         out.push(["error " + i + " " + e.error, e.code, "", "ERR:" + e.message, true]);
     });
     GLOSSARY.forEach((g) => {
-      if (g.code && g.out && !/input\(/.test(g.code)) out.push(["glossary " + g.term, g.code, "", g.out, false]);
+      if (g.run && g.code && g.out && !/input\(/.test(g.code)) out.push(["glossary " + g.term, g.code, "", g.out, false]);
+    });
+    return out;
+  },
+  /** Runnable glossary examples only, for `node tests/verify.cjs glossary`. */
+  glossaryChecks: () => {
+    const out: [string, string, string, string | null, boolean][] = [];
+    GLOSSARY.forEach((g) => {
+      if (g.run && g.code && !/input\(/.test(g.code)) out.push(["glossary " + g.term, g.code, "", g.out, false]);
     });
     return out;
   },
