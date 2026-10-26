@@ -5,6 +5,15 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-10-26
+
+### Added
+
+- Glossary expanded from 204 terms to 1,247, across the whole curriculum: core Python, the standard library, testing, Git and CI, concurrency, data and GIS libraries, machine learning, Docker, design, and Sinhala and Tamil Unicode.
+- Category filter, A–Z jump, and a windowed list. Search and the belt filter stay. Word of the Day still picks one term per local calendar day.
+- A Look back link when a White Belt lesson teaches the term. Snippets that cannot run in the vendored Pyodide are marked display-only.
+- `web/scripts/glossary_build.py` checks runnable examples and writes `web/src/content/glossary.ts`.
+
 ## [0.2.0] - 2026-10-26
 
 The app learners open is now the React + TypeScript build in `web/`.
@@ -40,5 +49,6 @@ Initial public source tree.
 - GitHub Actions workflow that deploys `app/` to GitHub Pages.
 - GitHub Actions workflow that cross-compiles the helper and attaches an offline zip to a GitHub Release. Prebuilt binaries are not stored in git.
 
+[0.3.0]: https://github.com/BronXTJ/py-dojo/compare/v0.2.0...main
 [0.2.0]: https://github.com/BronXTJ/py-dojo/releases/tag/v0.2.0
 [0.1.0]: https://github.com/BronXTJ/py-dojo/releases/tag/v0.1.0

@@ -17,10 +17,33 @@ describe("content", () => {
       for (const id of l.lookBack) expect(LESSONS.find((x) => x.id === id)!.n).toBeLessThan(l.n);
     }
   });
-  it("has 43 errors, 204 glossary terms and 10 belts", () => {
+  it("has 43 errors, at least 1000 glossary terms and 10 belts", () => {
     expect(ERRORS).toHaveLength(43);
-    expect(GLOSSARY).toHaveLength(204);
+    expect(GLOSSARY.length).toBeGreaterThanOrEqual(1000);
     expect(BELTS.map((b) => b.name)).toEqual(["White", "Yellow", "Orange", "Green", "Blue", "Purple", "Brown", "Red", "Black", "Master"]);
+    const keys = GLOSSARY.map((g) => g.term.toLowerCase());
+    expect(new Set(keys).size).toBe(keys.length);
+    const known = new Set(keys);
+    const lessonIds = new Set(LESSONS.map((l) => l.id));
+    for (const g of GLOSSARY) {
+      expect(g.term.length).toBeGreaterThan(0);
+      expect(g.meaning.length).toBeGreaterThan(0);
+      expect(g.category.length).toBeGreaterThan(0);
+      expect(g.belt).toBeGreaterThanOrEqual(0);
+      expect(g.belt).toBeLessThanOrEqual(9);
+      expect(typeof g.related).toBe("string");
+      expect(typeof g.run).toBe("boolean");
+      expect(typeof g.lesson).toBe("string");
+      if (g.lesson) {
+        expect(g.lesson).toMatch(/^white-\d+$/);
+        expect(lessonIds.has(g.lesson)).toBe(true);
+      }
+      if (g.run) expect(g.code.length).toBeGreaterThan(0);
+      for (const part of g.related.split(/,\s*/).filter(Boolean)) {
+        expect(known.has(part.toLowerCase()), g.term + " -> " + part).toBe(true);
+        expect(part.toLowerCase()).not.toBe(g.term.toLowerCase());
+      }
+    }
   });
   it("quiz is stable per seed and has the answer among the options", () => {
     const l = LESSONS[4]!;

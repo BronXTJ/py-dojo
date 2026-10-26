@@ -47,16 +47,19 @@ From `web/`, with Node.js 22 (the version CI installs):
 
 ## Regenerate content
 
-`web/scripts/gen-content.py` writes `web/src/content/{curriculum,depth,glossary,errors,bank,code,spot}.ts`.
+`web/scripts/gen-content.py` writes `web/src/content/{curriculum,depth,errors,bank,code,spot}.ts`. It does not write `glossary.ts`.
 
-It reads:
+`web/scripts/glossary_build.py` writes `web/src/content/glossary.ts`. It keeps every entry in `tools/content-src/glossary.json` (204 entries) and appends the terms in `glossary_extra.py` and the modules it loads. Runnable examples are executed with the local Python and must match `out`. Examples that cannot run in Pyodide 0.26.4 are stored with `run: false`.
+
+`gen-content.py` reads:
 
 - `tools/content-src/depth.json`
-- `tools/content-src/glossary.json` (must be 204 entries)
 - `tools/content-src/bank.ts`
 - `tools/content-src/code.js`
 - `tools/content-src/spot.js`
 - `/tmp/olddata.json`, a JSON object with `BELTS`, `BELT_ERR`, `ERRS`, `ERR_PY`, and `ERR_HIER` from the original app
+
+`glossary_build.py` also reads `tools/content-src/glossary.json`.
 
 The nine later-belt error snippets are executed with `python3` on the machine that runs the script. The committed encyclopedia was captured with CPython 3.13.5 (`ERR_PY` in `web/src/content/errors.ts`). Another interpreter can change the message text. Do not regenerate on a different version unless you mean to update `ERR_PY` and review the diff.
 
