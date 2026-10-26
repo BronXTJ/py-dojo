@@ -918,7 +918,8 @@ html {
 }
 .sc-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px;
+  /* Wide enough that INTERPRETER (12px, tracked) plus its dot stay 8px inside the card on wider system fonts. */
+  grid-template-columns: minmax(0, 1fr) 188px;
   gap: 10px;
 }
 .scr {
