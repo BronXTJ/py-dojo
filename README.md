@@ -4,21 +4,22 @@
 
 <br>
 
-**An offline-first path from absolute beginner to Python and GIS programming, with belts, a real interpreter in the page, and progress that stays on the machine.**
+**An offline-first path from absolute beginner to Python and GIS programming, with belts, a real interpreter in the page, and progress that stays in the browser.**
 
 <br>
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](app/index.html)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css&logoColor=white)](app/index.html)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](app/index.html)
+[![React](https://img.shields.io/badge/React-18-149ECA?logo=react&logoColor=white)](web/package.json)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](web/tsconfig.json)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](web/vite.config.ts)
 [![Pyodide](https://img.shields.io/badge/Pyodide-0.26.4-3776AB?logo=python&logoColor=white)](app/pyodide/NOTICE.txt)
 [![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?logo=webassembly&logoColor=white)](app/pyodide/NOTICE.txt)
 [![Python](https://img.shields.io/badge/Python-3.12.1-3776AB?logo=python&logoColor=white)](THIRD_PARTY_NOTICES.md)
 [![Go](https://img.shields.io/badge/Go-1.21-00ADD8?logo=go&logoColor=white)](server/)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/BronXTJ/py-dojo/actions/workflows/ci.yml/badge.svg)](https://github.com/BronXTJ/py-dojo/actions/workflows/ci.yml)
 [![Pages](https://github.com/BronXTJ/py-dojo/actions/workflows/pages.yml/badge.svg)](https://github.com/BronXTJ/py-dojo/actions/workflows/pages.yml)
-[![Offline-first](https://img.shields.io/badge/offline--first-local%20progress-0F172A)](docs/architecture.md#progress)
+[![Offline-first](https://img.shields.io/badge/offline--first-browser%20progress-0F172A)](docs/architecture.md#progress)
 [![No telemetry](https://img.shields.io/badge/telemetry-none-0F172A)](docs/architecture.md)
 [![Accessibility](https://img.shields.io/badge/accessibility-WCAG%20AA%20intent-0F172A)](docs/architecture.md#accessibility)
 
@@ -32,9 +33,9 @@
 ---
 
 <div align="center">
-<img src="docs/screenshots/dark-1440x900.png" alt="Py Dojo home in the dark theme at laptop size: White Belt, a one-day streak, Word of the Day, and the road to Yellow Belt" width="88%">
+<img src="docs/screenshots/desktop-dark-home.png" alt="Py Dojo home in the dark theme: where you are, Word of the Day, and the belt path from White to Master" width="88%">
 <br>
-<sub>Home, dark theme, 1440 × 900. The same screen at tablet and phone size is in <a href="#-screenshots">Screenshots</a>.</sub>
+<sub>Home, dark theme, 1920 × 1080. Phone, tablet, and lesson screens are in <a href="#-screenshots">Screenshots</a>.</sub>
 </div>
 
 ---
@@ -61,12 +62,12 @@
 
 Learning Python for GIS usually means a tutorial in one tab, an interpreter in another, and an error message that disappears when the laptop closes. Py Dojo keeps the path, the interpreter, and the reference on a single page.
 
-1. **Follow a belt** from White to Master. Each belt has a GIS thread, not a separate course waiting at the end.
-2. **Run real Python** in the page. The playground checks output, then offers the next hint, and only then the solution.
-3. **Keep the progress.** On your computer a small helper writes a JSON file. On the public site the same page uses the browser. There is no account.
+1. **Follow a belt** from White to Master. Each belt has a GIS thread, and White Belt is the path you can walk today.
+2. **Run real Python** in the page. Watch it, try a Living Lanka task, fix a bug, then take the quiz.
+3. **Keep the progress.** The page writes it in the browser. Export makes a JSON file you can move. There is no account.
 
 > [!IMPORTANT]
-> The public site at <https://bronxtj.github.io/py-dojo/> is published by GitHub Actions from the `app/` directory. The repository owner has to set **Settings → Pages → Source** to **GitHub Actions** once. The workflow cannot flip that switch. Until it is set, the live-demo link has nowhere to go.
+> The public site at <https://bronxtj.github.io/py-dojo/> is published by GitHub Actions. The workflow builds `web/` with Vite (`base: "./"`) and uploads the built page plus `pyodide/`. The repository owner has to set **Settings → Pages → Source** to **GitHub Actions** once. The workflow cannot flip that switch. Until it is set, the live-demo link has nowhere to go.
 
 ---
 
@@ -74,18 +75,19 @@ Learning Python for GIS usually means a tutorial in one tab, an interpreter in a
 
 | | Feature | What it means |
 |---|---|---|
-| 🥋 | **Ten belts, White to Master** | 119 topics are mapped. White Belt's 15 lessons are built and can be reviewed. Later belts show their map and stay locked until the XP line is reached. |
-| ⭐ | **XP and a streak** | First-time scores: practice quiz +10, a glossary word +5, Spot the error +5, a playground pass +15. The streak counts consecutive days the profile was opened. |
-| 🐍 | **Python in the browser** | Pyodide 0.26.4 runs CPython 3.12.1 in a Web Worker, from a file shipped with the app. A run longer than 5 seconds is stopped. |
-| ✅ | **Checked exercises** | 45 lesson templates, 9 playground templates, 14 Spot-the-error templates, and 5 fixed quiz questions. Hints are stepped. |
-| ⚠️ | **Error encyclopedia** | 34 messages captured from CPython 3.13.5 (31 exceptions and 3 surprises that are not errors), plus 9 notes for later belts. The full list is 43 cards. |
-| 📖 | **Glossary, 204 terms** | Word of the Day walks one term per day. 173 terms include a code sample whose output was captured. 108 include a GIS note. |
-| 🗺️ | **GIS in every belt** | Coordinates and labels at White Belt, through GeoJSON-shaped data, haversine distance, and a Master-belt capstone list (Shapely, GeoPandas, rasterio, PostGIS, folium, scikit-learn). Those libraries are named in the curriculum. They are not installed in the playground. |
-| 🔁 | **Review** | A finished White Belt topic can be opened again. Misses land in Weak spots. |
-| 💾 | **Progress on the machine** | The Go helper writes `data/<profile>.json`. Pages and a direct file open use the browser. Export and import move a JSON file. |
-| 🌗 | **Dark by default** | A day/night control. The choice is stored locally. |
-| 📱 | **Phone, tablet, laptop** | Screenshots at 375 × 812, 820 × 1180, and 1440 × 900. |
-| ♿ | **Accessibility, as an intention** | Keyboard focus, 44 pixel targets, named controls, a live save line, and reduced motion. Aimed at WCAG AA. Not a formal audit. |
+| 🥋 | **Ten belts, White to Master** | 119 topics are mapped in `web/src/content/curriculum.ts`. White Belt's 15 lessons are built. Yellow through Master stay locked, marked coming soon, with their topics and boss fights listed. |
+| 🎓 | **Seven stages in every lesson** | Hook, Learn, Watch, Try, Fix the bug, Quiz, and Reward. Watch asks for a prediction and a time-travel scrubber. Try is a Living Lanka task. Reward is the Founder's Challenge. |
+| 🐍 | **Python in the browser** | Pyodide 0.26.4 runs CPython 3.12.1 from `pyodide/bundle.js`, in an inline worker. A run longer than 4 seconds is stopped. |
+| ⚠️ | **Error encyclopedia** | 43 entries. Search, an exception family tree, and a button that runs the snippet. `ERR_PY` records CPython 3.13.5 as the capture version. |
+| 📖 | **Glossary, 204 terms** | Search and a belt filter. Word of the Day is one term per local calendar day, wrapping after 204 terms. |
+| 🗺️ | **Living Lanka** | A simplified Sri Lanka outline and city pins in the lesson scene. The outline traces geoBoundaries gbOpen LKA ADM0, CC BY 4.0. |
+| 🔁 | **Review** | A Leitner queue fed by quiz answers. Box gaps are 0, 1, 3, 7, 14, and 30 days. |
+| 🎲 | **Practice** | Up to five fresh exercises for an unlocked lesson: coding tasks, quiz cards, and spot-the-error. |
+| ⭐ | **XP and three meters** | The first time through a stage awards XP. Problem solving, critical thinking, and creativity each sit between 0 and 10. Amounts are listed in [architecture](docs/architecture.md#progress). |
+| 💾 | **Progress in the browser** | Autosave under `localStorage` key `pydojo-v2`. Export and Import live on the home screen. |
+| 🌗 | **Dark by default** | A day/night control. The choice is part of the saved progress. |
+| 📱 | **Phone, tablet, laptop, desktop** | The acceptance suite opens the built page at 390 × 844, 768 × 1024, 1280 × 800, and 1920 × 1080, in dark and light. |
+| ♿ | **Accessibility, as an intention** | Keyboard focus, 44 pixel targets, and reduced motion. Aimed at WCAG AA. The Chromium suite checks those three. It is not a formal audit. |
 
 ---
 
@@ -93,20 +95,24 @@ Learning Python for GIS usually means a tutorial in one tab, an interpreter in a
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/dark-820x1180.png" alt="Py Dojo home on a tablet in the dark theme"><br><sub><b>Tablet, 820 × 1180.</b> Progress cards in a row, then the lesson.</sub></td>
-    <td width="50%"><img src="docs/screenshots/dark-375x812.png" alt="Py Dojo home on a phone in the dark theme"><br><sub><b>Phone, 375 × 812.</b> The same home in one column.</sub></td>
+    <td width="50%"><img src="docs/screenshots/ipad-dark-home.png" alt="Py Dojo home on a tablet in the dark theme"><br><sub><b>Tablet, 768 × 1024, dark.</b> Where you are, then the belt path.</sub></td>
+    <td width="50%"><img src="docs/screenshots/phone-dark-home.png" alt="Py Dojo home on a phone in the dark theme"><br><sub><b>Phone, 390 × 844, dark.</b> The same home in one column.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/lesson-deep-dark.png" alt="A White Belt lesson opened for review"><br><sub><b>Lesson.</b> A White Belt topic opened to study again.</sub></td>
-    <td><img src="docs/screenshots/playground.png" alt="The code playground with an editor, Run and Check, and program output"><br><sub><b>Playground.</b> Real Python, Run, Check, and hints.</sub></td>
+    <td><img src="docs/screenshots/laptop-dark-lesson-watch.png" alt="Watch stage with the Living Lanka scene and a prediction box"><br><sub><b>Watch, 1280 × 800.</b> Predict, then replay the run.</sub></td>
+    <td><img src="docs/screenshots/laptop-dark-lesson-try.png" alt="Try stage with a Living Lanka coding task"><br><sub><b>Try, 1280 × 800.</b> A task whose output has to match.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/diagram-dark.png" alt="A lesson diagram drawn in the page"><br><sub><b>Diagram.</b> Drawn in the page so it follows the theme.</sub></td>
-    <td><img src="docs/screenshots/errors-dark.png" alt="Error encyclopedia with captured Python messages"><br><sub><b>Error encyclopedia.</b> Messages captured from Python, plus Spot the error.</sub></td>
+    <td><img src="docs/screenshots/laptop-dark-lesson-bug.png" alt="Fix the bug stage with the error highlighted"><br><sub><b>Fix the bug, 1280 × 800.</b> The broken line is marked, then you repair it.</sub></td>
+    <td><img src="docs/screenshots/laptop-light-home.png" alt="Py Dojo home in the light theme"><br><sub><b>Home, light theme, 1280 × 800.</b> The same path with the day theme.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/glossary-dark.png" alt="Glossary with search and belt filter"><br><sub><b>Glossary.</b> 204 terms, filterable by belt.</sub></td>
-    <td><img src="docs/screenshots/belts-dark.png" alt="Belt map from White through Master"><br><sub><b>Belt map.</b> White through Master, with the topics of the selected belt.</sub></td>
+    <td><img src="docs/screenshots/desktop-dark-errors.png" alt="Error encyclopedia in the dark theme"><br><sub><b>Error encyclopedia, 1920 × 1080.</b> 43 entries, with search.</sub></td>
+    <td><img src="docs/screenshots/desktop-dark-glossary.png" alt="Glossary in the dark theme"><br><sub><b>Glossary, 1920 × 1080.</b> 204 terms and Word of the Day.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/laptop-dark-review.png" alt="Spaced-repetition review screen"><br><sub><b>Review, 1280 × 800.</b> Cards come back on a schedule.</sub></td>
+    <td><img src="docs/screenshots/laptop-dark-practice.png" alt="Practice screen with generated exercises"><br><sub><b>Practice, 1280 × 800.</b> A fresh set for an unlocked lesson.</sub></td>
   </tr>
 </table>
 
@@ -116,27 +122,23 @@ Learning Python for GIS usually means a tutorial in one tab, an interpreter in a
 
 ```mermaid
 flowchart TD
-  open["Open the page"] --> today["Today: lesson, quiz, weak spots"]
-  open --> play["Playground"]
-  open --> ref["Encyclopedia and glossary"]
-  play --> worker["Web Worker"]
-  worker --> local["Embedded Pyodide 0.26.4"]
-  worker -.-> cdn["jsDelivr, only if the bundle is missing"]
-  today --> xp["XP, streak, belt map"]
-  ref --> xp
-  play --> xp
-  xp --> where{"How was the page opened?"}
-  where -->|"Helper on 127.0.0.1"| disk["data/profile.json and this browser"]
-  where -->|"GitHub Pages or a file open"| browser["This browser only"]
-  browser --> move["Export or import JSON"]
+  open["Open the page"] --> home["Home: next lesson, review due, word of the day"]
+  open --> lesson["Lesson: seven stages"]
+  open --> ref["Errors, glossary, practice"]
+  lesson --> worker["Inline Web Worker"]
+  worker --> local["Pyodide 0.26.4 from pyodide/bundle.js"]
+  home --> save["localStorage key pydojo-v2"]
+  lesson --> save
+  ref --> save
+  save --> move["Export or import JSON"]
 ```
 
-The helper is optional. The lessons and the interpreter do not need it. It exists so a folder you keep can hold the progress file next to the app.
+Hash routes (`#/lesson/white-5/2` and the rest) keep the same build working from a `file://` open, from `http://localhost:8473/`, and from GitHub Pages at `/py-dojo/`. Asset URLs in the production build are relative. There is no `<base href>` tag.
+
+The Go helper is optional. It serves the folder on `127.0.0.1`. The React app does not call its `/api/save`, `/api/load`, or `/api/profiles` routes. Progress stays in the browser either way.
 
 > [!NOTE]
-> On GitHub Pages the save line refers to this browser. The helper, which writes `data/<profile>.json`, runs only on the computer where you started it. Export is how a Pages profile moves into that folder.
-
-A day on the streak is a calendar day the profile was opened. The card encourages five focused minutes; the counter itself records the visit. Word of the Day advances one glossary term per UTC day from the day the profile started, then wraps after 204 terms.
+> Word of the Day uses the local calendar day: the glossary index is that day number modulo 204. It does not depend on when the profile was created.
 
 ---
 
@@ -144,37 +146,36 @@ A day on the streak is a calendar day the profile was opened. The card encourage
 
 | Layer | Technology | Responsibility |
 |---|---|---|
-| Page | HTML, CSS, JavaScript, one file | Lessons, belts, quiz, glossary, encyclopedia, diagrams, profiles, theme |
-| Python | Pyodide 0.26.4, CPython 3.12.1, WebAssembly | Playground code in a worker, stopped after 5 seconds |
-| Helper | Go 1.21, standard library | Serves the folder on `127.0.0.1`, reads and writes progress JSON |
-| Progress | JSON | `localStorage` always; `data/<profile>.json` when the helper is running |
-| Content tools | Python 3 and Node.js | Generate and check lessons, errors, glossary entries, and exercises |
-| Public site | GitHub Pages | Static `app/` directory. No helper. |
+| App | React 18, TypeScript, Vite, in `web/` | Home, lessons, review, practice, glossary, error encyclopedia, theme |
+| Build | Vite 5, `vite-plugin-singlefile`, `base: "./"` | One `index.html` (JS, CSS, and the worker inlined) plus `pyodide/` beside it |
+| Python | Pyodide 0.26.4, CPython 3.12.1, WebAssembly | Runs lesson code. Stopped after 4 seconds. Loaded only from `pyodide/bundle.js`. |
+| Helper | Go 1.21, standard library (`server/main.go`) | Serves the folder on `127.0.0.1`. Still implements `/api/*` for a client that posts JSON. The UI does not. |
+| Progress | JSON in `localStorage` | Key `pydojo-v2`. Export and import on the home screen. |
+| Content | TypeScript in `web/src/content/` | Lessons are hand-written. The bank, glossary, errors, and belt table are generated. |
+| Public site | GitHub Pages | The Vite `dist/` output, including `pyodide/`. |
 
 ```mermaid
 flowchart LR
   subgraph client ["Browser"]
-    html["app/index.html"]
-    ls[("localStorage")]
+    ui["React app in index.html"]
+    ls[("localStorage pydojo-v2")]
   end
   subgraph wasm ["In-browser Python"]
-    bundle["app/pyodide/bundle.js"]
+    bundle["pyodide/bundle.js"]
     py["CPython 3.12.1"]
   end
   subgraph host ["This computer only"]
     go["Go helper on 127.0.0.1"]
-    json[("app/data/name.json")]
   end
-  html --> ls
-  html --> bundle
+  ui --> ls
+  ui --> bundle
   bundle --> py
-  html -->|"/api when host is localhost"| go
-  go --> json
+  go -->|"static files"| ui
 ```
 
-The helper binds `127.0.0.1`, starts at port 8473, and will try through 8482. It refuses a request that is not from loopback. It does not serve the `data/` or `bin/` directories. Profile names are letters, numbers, spaces, hyphens, or underscores, up to 32 characters. A space becomes an underscore in the filename. The body must be valid JSON of at most 1 MiB, written via a temporary file and a rename.
+The helper binds `127.0.0.1`, starts at port 8473, and will try through 8482. It refuses a request that is not from loopback. It does not serve `data/` or `bin/`. Profile names, when something uses the API, are letters, numbers, spaces, hyphens, or underscores, up to 32 characters. A save body must be valid JSON of at most 1 MiB, written via a temporary file and a rename.
 
-More detail, including the accessibility notes: [`docs/architecture.md`](docs/architecture.md).
+More detail: [`docs/architecture.md`](docs/architecture.md).
 
 ---
 
@@ -182,7 +183,7 @@ More detail, including the accessibility notes: [`docs/architecture.md`](docs/ar
 
 | Belt | Unlocks at | Theme | Topics | What is in the app |
 |---|---:|---|---:|---|
-| White | 0 XP | Foundations | 15 | Lessons, exercises, 9 diagrams, playground, captured errors |
+| White | 0 XP | Foundations | 15 | 15 lessons, seven stages each, captured errors |
 | Yellow | 300 XP | Control flow | 9 | Map, glossary, error note |
 | Orange | 700 XP | Data structures | 11 | Map, glossary, error note |
 | Green | 1,200 XP | Functions and modules | 12 | Map, glossary, error note |
@@ -193,12 +194,12 @@ More detail, including the accessibility notes: [`docs/architecture.md`](docs/ar
 | Black | 5,200 XP | Under the hood | 9 | Map, glossary, error note |
 | Master | 6,500 XP | Real-world mastery | 15 | Map, glossary, error note |
 
-119 topics. 204 glossary terms across the ten belts. The White Belt GIS thread uses coordinates as floats (Colombo 6.9271, 79.8612), f-strings for labels, and a plain explanation of a CRS. Later belts move through bounding boxes, GeoJSON-shaped dicts, haversine distance, files, classes, streaming, packaging, and the Master capstone.
+119 topics. 204 glossary terms across the ten belts (65 of them on White). The White Belt GIS thread uses coordinates as floats (Colombo 6.9271, 79.8612), f-strings for labels, and a plain explanation of a CRS. Later belts move through bounding boxes, GeoJSON-shaped dicts, haversine distance, files, classes, streaming, packaging, and the Master capstone.
 
 Every topic name, GIS line, and boss-fight title is in [`docs/curriculum.md`](docs/curriculum.md).
 
 > [!NOTE]
-> Reaching a later belt's XP does not invent lessons that are not written yet. The map describes them. The teaching material that can be opened and checked is White Belt.
+> Reaching a later belt's XP does not unlock lessons that are not written yet. The home map keeps Yellow through Master locked and labelled coming soon. The teaching material you can open is White Belt.
 
 ---
 
@@ -206,7 +207,7 @@ Every topic name, GIS line, and boss-fight title is in [`docs/curriculum.md`](do
 
 ### Use it online
 
-Open <https://bronxtj.github.io/py-dojo/> after Pages is set to GitHub Actions, as noted above. Wait for the playground to say Python is ready. Progress stays in that browser. Use **Export progress** at the bottom of the page if you want a file.
+Open <https://bronxtj.github.io/py-dojo/> after Pages is set to GitHub Actions, as noted above. Wait until the status line says Python is ready. Progress stays in that browser. Use **Export** on the home screen if you want a file.
 
 ### Download an offline release
 
@@ -221,7 +222,7 @@ Open <https://bronxtj.github.io/py-dojo/> after Pages is set to GitHub Actions, 
 | Linux | `./start-linux.sh` |
 
 > [!IMPORTANT]
-> The zip is built when a `v*.*.*` tag is pushed. It is not in the git tree. Until the first tag is published, Releases has no file. A clone plus Go, below, is the way to run it before that.
+> The zip is built when a `v*.*.*` tag is pushed. It is not in the git tree. Until a tag is published, Releases has no file. A clone, below, is the way to run it before that.
 
 **Windows SmartScreen.** The helper is unsigned. If Windows says it protected your PC, choose **More info**, then **Run anyway**. If Firewall asks, **Cancel** is fine: the helper listens only on this computer.
 
@@ -240,32 +241,30 @@ chmod +x start-linux.sh
 ./start-linux.sh
 ```
 
-If the bundled helper cannot start, the launcher tries Python's `http.server` on port 8473. That serves the page and does not write `data/`. Double-clicking `index.html` is the same idea: the app runs, and progress stays in the browser. Keep the `pyodide` folder beside `index.html`.
+If the bundled helper cannot start, the launcher tries Python's `http.server` on port 8473, then opens `index.html` directly. Keep the `pyodide` folder beside `index.html`.
 
 ### Run from a clone
 
-Git does not contain helper binaries. Build one, or serve the folder.
+Node.js 22 is what CI uses. Go 1.21 or newer is only needed for the helper.
 
 ```bash
 git clone https://github.com/BronXTJ/py-dojo.git
-cd py-dojo
-mkdir -p app/bin
-cd server
-CGO_ENABLED=0 go build -o ../app/bin/pydojo-linux-x64 .
-cd ..
-./app/start-linux.sh
+cd py-dojo/web
+npm ci
+npm run dev
 ```
 
-On macOS or Windows, build the matching name from the table in [`docs/development.md`](docs/development.md) into `app/bin/`, then use that system's Start file.
+The dev server reads the Pyodide runtime from `app/pyodide/`. `npm run build` typechecks, writes one `web/dist/index.html`, and copies that runtime to `web/dist/pyodide/`.
+
+To serve the built page with the helper:
 
 ```bash
-# helper binary somewhere else
 cd server
 CGO_ENABLED=0 go build -o /tmp/pydojo .
-PYDOJO_DIR="$PWD/../app" PYDOJO_NO_BROWSER=1 /tmp/pydojo
+PYDOJO_DIR="$PWD/../web/dist" PYDOJO_NO_BROWSER=1 /tmp/pydojo
 ```
 
-`PYDOJO_NO_BROWSER=1` does not open a browser. Then visit <http://localhost:8473/>.
+Then open <http://localhost:8473/>. `PYDOJO_NO_BROWSER=1` does not open a browser. `PYDOJO_DIR` is the folder that contains `index.html`.
 
 The longer walkthrough is [`docs/START_HERE.md`](docs/START_HERE.md).
 
@@ -273,29 +272,42 @@ The longer walkthrough is [`docs/START_HERE.md`](docs/START_HERE.md).
 
 ## 🧪 Testing
 
-This repository does not ship a unit-test suite, and this section does not quote one. The checks that do exist are content verifiers and a compile of the helper.
-
-From `tools/content-src/`, with Node.js and `python3` on the path:
+From `web/`, with Node.js 22:
 
 ```bash
-node verify.js          # lesson examples and generated questions
-node verify_code.js     # playground solutions
-node verify_spot.js     # spot-the-error snippets
+npm ci
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run qa -- chromium
 ```
 
-| Script | What a run reported | Stable? |
-|---|---|---|
-| `verify.js` | 884 Python runs. 0 output mismatches. 18 draws where a multiple-choice question repeated an option (`DUPOPT`), in the floor, modulo, brackets, and power templates. | Yes. The script uses a fixed sample. |
-| `verify_code.js` | `problems: 0` | The problem count is the signal. The sample size changes because duplicate random draws are skipped, so it is not quoted here. |
-| `verify_spot.js` | `problems: 0` | Same as above. |
+| Check | What it covers |
+|---|---|
+| `npm run typecheck` | `tsc -p tsconfig.json` on `web/src` (strict, `noUncheckedIndexedAccess`) |
+| `npm run lint` | ESLint with typescript-eslint strict and the React hooks plugin |
+| `npm test` | Vitest. `src/checker.test.ts` asserts 15 lessons, 43 errors, 204 glossary terms, and the 10 belt names, plus checkers, the router, and storage sanitize. |
+| `npm run build` | Typecheck, Vite single-file build, copy `app/pyodide` into `dist/pyodide` |
+| `npm run qa -- chromium` | Playwright acceptance suite against `dist/index.html`: layout, contrast, and the Living Lanka scene at four sizes in dark and light; a 15-lesson journey; the page served at `/py-dojo/`; reduced motion, keyboard focus, and 44 pixel targets |
 
-Those three commands were run with Python 3.12.3. `verify.js` does not shell out for the duplicate-option findings; they are a property of the templates.
+`playwright-core` does not download a browser. Chromium uses `CHROME_PATH` (default `/usr/bin/google-chrome`). `CHROME_NO_SANDBOX=1` adds `--no-sandbox` for environments that need it. `PYDOJO_URL` and `PYDOJO_SHOTS` override the page and the screenshot directory. `PYDOJO_ONLY` can be `layout`, `journey`, `base`, or `a11y`.
 
-The helper was cross-compiled with `CGO_ENABLED=0` for `linux/amd64`, `darwin/arm64`, `darwin/amd64`, and `windows/amd64`. The Linux binary served the app, hid `/data/` and `/bin/`, rejected a foreign `Host`, and wrote a profile JSON under `app/data/`. The release workflow does the same four builds and packs them into the zip.
+`npm run verify` runs curriculum snippets in real Pyodide. It is not part of CI. `npm run gen` rewrites `web/src/content` and needs `tools/content-src` plus `/tmp/olddata.json`. It is not part of CI.
 
-The page was also opened the way GitHub Pages will serve it: `app/` mounted at `/py-dojo/` on a hostname that is not `localhost`. The relative `pyodide/bundle.js` loaded, Python reported the offline copy, the save line referred to the browser, and no `/api/` request was made. A phone-width viewport did not overflow horizontally. The only 404 was `favicon.ico`.
+The helper compiles with `CGO_ENABLED=0` from `server/`. CI builds the Linux binary. The release workflow cross-compiles `linux/amd64`, `darwin/arm64`, `darwin/amd64`, and `windows/amd64`.
 
-For this 0.1.0 tree, the workflow files passed actionlint 1.7.12.
+On the machine that prepared 0.2.0, with Node.js 22.23.4 and `/usr/bin/google-chrome`:
+
+| Command | Result |
+|---|---|
+| `npm run typecheck` | Passed |
+| `npm run lint` | Passed |
+| `npm test` | 12 tests passed in `src/checker.test.ts` |
+| `npm run build` | Wrote `web/dist/index.html` and copied `app/pyodide` into `web/dist/pyodide` |
+| `npm run qa -- chromium` | Exited 0. Eight layout cases passed (laptop, phone, iPad, and desktop, in dark and light). The 15-lesson journey passed with 7 stages in each lesson. The page served at `/py-dojo/` passed. Reduced motion, keyboard focus, and 44 pixel targets passed. |
+
+The workflow files passed actionlint 1.7.12. CI on the pull request runs the same web checks and a `gofmt` plus `go build` of `server/`.
 
 ---
 
@@ -303,33 +315,38 @@ For this 0.1.0 tree, the workflow files passed actionlint 1.7.12.
 
 ```text
 py-dojo/
-├── app/                          the site Pages deploys, and the root of the offline zip
-│   ├── index.html                the whole app
-│   ├── pyodide/
-│   │   ├── bundle.js             Pyodide 0.26.4 core, unmodified, about 18 MB
-│   │   └── NOTICE.txt
-│   ├── data/                     progress JSON appears here at runtime; not committed
-│   │   └── README.txt
-│   ├── Start Py Dojo (Windows).bat
-│   ├── Start Py Dojo (Mac).command
+├── web/                          React + TypeScript app (Vite)
+│   ├── src/                      screens, stages, content, Pyodide engine
+│   ├── tests/qa.cjs              Playwright acceptance suite
+│   ├── scripts/copy-pyodide.mjs  copies app/pyodide into dist/ after a build
+│   ├── scripts/gen-content.py    regenerates src/content from tools/content-src
+│   ├── package.json
+│   └── vite.config.ts            base "./", single-file build
+├── app/pyodide/                  vendored Pyodide 0.26.4 (MPL-2.0), not built by Vite
+│   ├── bundle.js
+│   └── NOTICE.txt
+├── packaging/                    files copied into the offline zip and the Pages root
 │   ├── start-linux.sh
-│   └── README.txt                short guide shipped inside the zip
+│   ├── Start Py Dojo (Mac).command
+│   ├── Start Py Dojo (Windows).bat
+│   ├── README.txt
+│   ├── .nojekyll
+│   └── data/README.txt
 ├── server/                       Go helper source (no committed binary)
 │   ├── main.go
 │   └── go.mod
-├── tools/content-src/            generators and verifiers
+├── tools/content-src/            inputs for gen-content.py, plus the older verifiers
 ├── docs/
 │   ├── assets/banner.png
-│   ├── screenshots/              dark-theme stills at three sizes, plus feature shots
+│   ├── screenshots/
 │   ├── START_HERE.md
 │   ├── architecture.md
 │   ├── curriculum.md
 │   └── development.md
-├── .github/
-│   ├── workflows/pages.yml       deploy app/ to GitHub Pages
-│   ├── workflows/release.yml     cross-compile and attach the offline zip
-│   ├── ISSUE_TEMPLATE/
-│   └── PULL_REQUEST_TEMPLATE.md
+├── .github/workflows/
+│   ├── ci.yml                    typecheck, lint, vitest, Chromium acceptance, go build
+│   ├── pages.yml                 Vite build, upload dist + pyodide
+│   └── release.yml               four helper binaries + offline zip
 ├── LICENSE                       MIT, Copyright (c) 2026 Thanuja Lakshan
 ├── THIRD_PARTY_NOTICES.md
 ├── CHANGELOG.md
@@ -338,7 +355,7 @@ py-dojo/
 └── CITATION.cff
 ```
 
-Prebuilt helpers are not in git. They go stale, and the release workflow can build all four from `server/`. The Pyodide bundle stays, because a clone and the Pages site both need it for offline Python, and the file is under GitHub's 100 MB limit.
+`web/dist/` and `web/node_modules/` are not committed. Pages and the release zip build them. Prebuilt helpers are not in git. The Pyodide bundle stays, because a clone, the dev server, and the Pages site all need it for offline Python, and the file is under GitHub's 100 MB limit.
 
 ---
 
@@ -347,28 +364,28 @@ Prebuilt helpers are not in git. They go stale, and the release workflow can bui
 | | Document | Description |
 |---|---|---|
 | 🚪 | [`docs/START_HERE.md`](docs/START_HERE.md) | Online, the release zip, and a clone |
-| 🏗️ | [`docs/architecture.md`](docs/architecture.md) | Page, worker, helper, progress, accessibility |
+| 🏗️ | [`docs/architecture.md`](docs/architecture.md) | React app, worker, helper, progress, accessibility |
 | 🥋 | [`docs/curriculum.md`](docs/curriculum.md) | Every belt, topic, GIS line, and boss fight |
-| 🛠️ | [`docs/development.md`](docs/development.md) | Regenerating content and building the helper |
+| 🛠️ | [`docs/development.md`](docs/development.md) | Build, tests, content regeneration, the helper |
 | 🤝 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to propose a change |
 | 📜 | [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Contributor Covenant 2.1 |
-| ⚖️ | [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) | Pyodide (MPL-2.0), CPython, Emscripten, Go |
-| 🗒️ | [`CHANGELOG.md`](CHANGELOG.md) | From 0.1.0 |
+| ⚖️ | [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) | Pyodide (MPL-2.0), CPython, Emscripten, Go, geoBoundaries |
+| 🗒️ | [`CHANGELOG.md`](CHANGELOG.md) | 0.2.0 is the React app. 0.1.0 was the single-file page. |
+
+The package notes for the Vite project itself are in [`web/README.md`](web/README.md).
 
 ---
 
 ## ⚖️ Limitations
 
-- **White Belt is the taught path.** Yellow through Master are mapped: topics, a GIS line, a boss-fight title, glossary entries, and a one-line error note. Their lessons, playground tasks, and captured tracebacks are not written yet.
-- **The playground is the standard library.** Pyodide's core files are embedded. GeoPandas, Shapely, rasterio, NumPy, and the other Master-belt libraries are not.
-- **Five-second stop.** A cell that does not finish is halted. That is deliberate.
-- **Pages cannot write the progress file.** Progress there is per browser until you export it. There is no account and no sync.
-- **One optional network request.** If `pyodide/bundle.js` is missing, the worker loads Pyodide 0.26.4 from jsDelivr. With the file present, Python starts from disk. There is no analytics.
-- **Two Python versions.** Encyclopedia text was captured with CPython 3.13.5. The interpreter in the page is CPython 3.12.1. A few messages can differ.
-- **Some generated questions repeat an option.** `verify.js` reports 18 such draws in its fixed sample. Output checks in that run did not disagree with Python.
-- **The home "Your belt" card** is the starting White Belt presentation in the HTML. The belt map and the XP bar follow saved progress.
+- **White Belt is the taught path.** Yellow through Master are mapped: topics, a GIS line, a boss-fight title, glossary entries, and an error note. Their lessons are not in the app. The belt map says coming soon.
+- **The playground is the standard library.** GeoPandas, Shapely, rasterio, NumPy, and the other Master-belt libraries are named in the curriculum. They are not installed.
+- **Four-second stop.** A cell that does not finish is halted. That is deliberate.
+- **Progress is per browser.** Export and Import are how a copy moves. There is no account and no sync. The helper's save API is still in the binary, and the React UI does not call it.
+- **Python starts only from `pyodide/bundle.js`.** If that file is missing, the status line says the files are missing. The page does not fetch Pyodide from a CDN.
+- **Two Python versions.** Encyclopedia text was captured with CPython 3.13.5 (`ERR_PY` in `web/src/content/errors.ts`). The interpreter in the page is CPython 3.12.1. A few messages can differ.
 - **Release binaries are unsigned.** Windows SmartScreen and macOS Gatekeeper warn the first time. See Getting started.
-- **No favicon** is shipped, so a browser will request `/favicon.ico` and get a 404. The app does not need it.
+- **The favicon is an empty data URL** so the page does not request `/favicon.ico`.
 
 ---
 
@@ -381,13 +398,13 @@ If you use this project, please cite it. The machine-readable file is [`CITATION
   author  = {Lakshan, Thanuja},
   title   = {{Py Dojo}: An Offline-First Learning Platform for Python and GIS Programming},
   year    = {2026},
-  version = {0.1.0},
+  version = {0.2.0},
   url     = {https://github.com/BronXTJ/py-dojo},
   license = {MIT}
 }
 ```
 
-Original code and lessons are MIT, copyright (c) 2026 Thanuja Lakshan. Pyodide and the other embedded runtimes keep their own licenses. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Original code and lessons are MIT, copyright (c) 2026 Thanuja Lakshan. Pyodide and the map outline keep their own licenses. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---
 
@@ -395,6 +412,7 @@ Original code and lessons are MIT, copyright (c) 2026 Thanuja Lakshan. Pyodide a
 
 - [Pyodide](https://github.com/pyodide/pyodide) 0.26.4, Mozilla Public License 2.0, which brings [CPython](https://github.com/python/cpython) 3.12.1 to the browser. The WebAssembly build uses [Emscripten](https://emscripten.org/).
 - The [Go](https://go.dev/) standard library, used by the local helper.
+- The Sri Lanka outline in the lesson scene is a simplified trace of [geoBoundaries](https://www.geoboundaries.org/) gbOpen LKA ADM0, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Runfola, D. et al. (2020) geoBoundaries: A global database of political administrative boundaries. PLoS ONE 15(4): e0231866. <https://doi.org/10.1371/journal.pone.0231866>
 - The examples use places in Sri Lanka — Colombo, Kandy, Galle, Jaffna, and others — as the thread that carries GIS ideas from the first belt.
 
 <div align="center">

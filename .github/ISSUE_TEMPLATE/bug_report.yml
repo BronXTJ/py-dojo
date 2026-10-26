@@ -39,11 +39,11 @@ body:
   - type: dropdown
     id: save
     attributes:
-      label: Where did the save line say progress went?
+      label: Where was progress kept?
       options:
-        - This browser
-        - The progress file (Saved)
-        - It reported a failure
+        - This browser (autosave)
+        - I exported a JSON file
+        - Import failed and nothing changed
         - I did not notice
     validations:
       required: false

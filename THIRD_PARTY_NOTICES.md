@@ -44,10 +44,18 @@ The WebAssembly build inside Pyodide is produced with Emscripten. Emscripten is 
 - Project: <https://go.dev/>
 - License: BSD 3-Clause — <https://go.dev/LICENSE>
 
+## geoBoundaries
+
+The Sri Lanka outline in `web/src/geo.ts` (`SL_PATH`) is a simplified trace of geoBoundaries gbOpen LKA ADM0. The original GeoJSON is not in this repository. The trace uses an equirectangular projection (`cos(7.8°)`) and Douglas–Peucker simplification.
+
+- Project: <https://www.geoboundaries.org/>
+- License: Creative Commons Attribution 4.0 International — <https://creativecommons.org/licenses/by/4.0/>
+- Citation: Runfola, D. et al. (2020) geoBoundaries: A global database of political administrative boundaries. PLoS ONE 15(4): e0231866. <https://doi.org/10.1371/journal.pone.0231866>
+
 ## What is not bundled
 
 The web app uses the operating system's UI fonts. No font files are shipped.
 
 The playground loads the Python standard library from the embedded Pyodide core. It does not include GeoPandas, Shapely, rasterio, NumPy, or other third-party Python packages named in the later belts. Those names are curriculum targets.
 
-If `pyodide/bundle.js` fails to load, the page asks `cdn.jsdelivr.net` for Pyodide 0.26.4. That request is a fallback for a missing file, not a telemetry call. With the bundle in place, the playground does not make it.
+The page loads Python only from `pyodide/bundle.js`. It does not request a copy from a CDN. If the file is missing, the status line says so and the interpreter does not start.
